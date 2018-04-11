@@ -1,0 +1,115 @@
+# this is description of the game
+places:
+  - place:
+    name: Madrid
+    description: You are in Madrid seeking for the friend.
+  - place:
+    name: Madrid-cantine
+    description: Select quest
+  - place:
+    name: Madrid-tree # give wizard at tree the egg
+  - place:
+    name: Paris
+    type: arctic
+  - place:
+    name: Paris-cantine
+  - place:
+    name: Paris-shop # buy the boat here
+  - place:
+    name: London
+  - place:
+    name: London-undergound
+  - place:
+    name: London-cantine
+  - place:
+    name: Casablanca
+    type: desert
+  - place:
+    name: Casablanca-shop
+
+ways:
+  - way:
+    from: Paris/center
+    to: Madrid/center
+  - way:
+    from: Paris/center
+    to: London/center
+  - way:
+    from: Madrid/center
+    to: Casablanca/center
+  - way:
+    from: Madrid/center
+    to: Madrid/cantine
+  - way:
+    from: Madrid/center
+    to: Madrid/tree
+
+quests:
+  - quest:
+    name: give wizard the egg # this unlock possibility to buy the boat in Madrid
+  - quest:
+    name: buy boat # this unlock way from Paris to London
+
+npcs:
+  - npc:
+    name: Wizard
+    place: Madrid-tree
+    weapon:
+      name: knife
+      level: 10
+    life: 100
+  - npc:
+    name: Boss
+    is_enemy: true
+    place: London-undergound
+    weapon:
+      name: bow
+      level: 50
+    armour:
+      name: shield
+      level: 10
+    life: 10000
+
+races:
+  - race:
+    name: Arctic
+    is_hero: true
+    weapons:
+      weapon:
+        name: sword
+        level: 10
+      weapon:
+        name: knife
+        level: 5
+        in_hand: true
+    abilities:
+      - ability: freeze_enemy_3_round_on_dice_6
+      - ability: weapon_level_twice
+  - race:
+    name: Tropic
+    is_hero: true
+    weapons:
+      weapon:
+        name: fist
+        level: 1
+    abilities:
+      - ability: surrvive_at_desert
+      - ability: die_in_arctic
+  - race:
+    name: Bear
+    weapons:
+      weapon:
+        name: knife
+        level: 5
+        in_hand: true
+    abilities:
+      - ability: weapon_level_twice
+  - race:
+    name: Horse
+    weapons:
+      weapon:
+        name: tail_swing
+        level: 1
+    abilities:
+      - ability: summoning_when_dice_6 # create new clone when dice 6, all clons will attack the hero
+      - ability: die_in_desert
