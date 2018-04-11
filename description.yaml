@@ -1,7 +1,7 @@
 # this is description of the game
 places:
   - place:
-    name: Madrid
+    name: Madrid-center
     description: You are in Madrid seeking for the friend.
   - place:
     name: Madrid-cantine
@@ -9,40 +9,41 @@ places:
   - place:
     name: Madrid-tree # give wizard at tree the egg
   - place:
-    name: Paris
+    name: Paris-center
     type: arctic
+    description: You are in Paris seeking for the friend.
   - place:
     name: Paris-cantine
   - place:
     name: Paris-shop # buy the boat here
   - place:
-    name: London
+    name: London-center
   - place:
     name: London-undergound
   - place:
     name: London-cantine
   - place:
-    name: Casablanca
+    name: Casablanca-center
     type: desert
   - place:
     name: Casablanca-shop
 
 ways:
   - way:
-    from: Paris/center
-    to: Madrid/center
+    from: Paris-center
+    to: Madrid-center
   - way:
-    from: Paris/center
-    to: London/center
+    from: Paris-center
+    to: London-center
   - way:
-    from: Madrid/center
-    to: Casablanca/center
+    from: Madrid-center
+    to: Casablanca-center
   - way:
-    from: Madrid/center
-    to: Madrid/cantine
+    from: Madrid-center
+    to: Madrid-cantine
   - way:
-    from: Madrid/center
-    to: Madrid/tree
+    from: Madrid-center
+    to: Madrid-tree
 
 quests:
   - quest:

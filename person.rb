@@ -44,6 +44,7 @@ class Person
 
   def move(place)
     @place = place
+    puts "Person #{name} moved to #{place.name}"
   end
 
   def to_s

@@ -7,6 +7,9 @@ class Way
      @from=place1
      @to=place2
   end
+  def to_s
+    "#{@from}-#{@to}"
+  end
 end
 
 # -------------------------------------------
@@ -27,7 +30,7 @@ end
 # -------------------------------------------
 
 class Map
-  attr :places
+  attr :places,:ways
   def initialize
     @places = []
     @ways = []
