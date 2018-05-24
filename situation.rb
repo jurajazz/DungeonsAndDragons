@@ -12,12 +12,11 @@ class Action
 end
 
 class Situation
-  attr_accessor :place, :description, :is_fight, :actions
+  attr_accessor :place_name, :description, :is_fight, :actions
 
-  def initialize(place)
-    @place=place
-    @description=place.description
-    @description="You are at #{place}" if @description.nil?
+  def initialize(place_name)
+    @place_name=place_name
+    @description="You are at #{place_name}"
     @is_fight
     @actions=[]
   end

@@ -6,7 +6,7 @@ require_relative 'map'
 require_relative 'situation'
 
 class Engine
-  attr_accessor :map,:npcs,:hero,:races,:situation
+  attr_accessor :map,:npcs,:hero,:races,:situation,:enemy
   def initialize
     @map = Map.new
     @npcs = [] # non player characters
@@ -15,6 +15,8 @@ class Engine
     @hero.name = 'Hero'
     @races = []
     @situation = nil
+    @enemies = []
+    @game_is_over = false
   end
 
   def load_description(filename)
@@ -23,7 +25,9 @@ class Engine
     @map.load(desc)
     desc['npcs'].each do |p|
       puts "Loading npc #{p['name']}"
-      @npcs << Person.new.load(p)
+      npc = Person.new
+      npc.load(p)
+      @npcs << npc
     end
     desc['races'].each do |r|
       puts "Loading race #{r['name']}"
@@ -32,23 +36,34 @@ class Engine
   end
 
   def start_game
+    @game_is_over = false
     load_description('description.yaml')
-    @hero.move(@map.places.first)
+    @hero.move(@map.places.first.name)
     situation_prepare
   end
 
   def situation_prepare
-    @situation = Situation.new(@hero.place)
+    @situation = Situation.new(@hero.place_name)
+    @enemies = []
     puts "------------------------------------------------"
     puts "Current situation: #{@situation}"
     puts "#{@hero}"
+    # search for enemies
+    @npcs.each do |npc|
+      #puts "Situation prepare checking npc #{npc.name}"
+      if npc.is_enemy and npc.life>0 and npc.place_name == @hero.place_name
+        # live enemy is here
+        puts "Enemy #{npc} is here"
+        situation.actions << Action.new('fight',npc.name)
+        @enemies << npc
+        situation.is_fight = true
+      end
+    end
     @map.ways.each do |way|
-      if way.from == situation.place.name
+      if way.from == situation.place_name
         situation.actions << Action.new('move',way.to)
       end
     end
-    situation.actions << Action.new('fight','Wizard')
-    situation.actions << Action.new('fight','Anyone')
     print "Possible actions: "
     @situation.actions.each do |a|
       print "#{a},"
@@ -63,23 +78,35 @@ class Engine
     case type
     when 'move'
       found=false
-      @map.places.each do |p|
-        if p.name == name
-          @hero.move(p)
-          found=true
-          break
-        end
-      end
-      puts "Place -#{name}- not found" if !found
+      @hero.move(name)
     when 'fight'
-      fight
+      do_hero_fight_step
+    when 'spell'
+      do_spell(name)
     else
       puts "Not implemented: #{type}"
     end
     situation_prepare
   end
 
-  def fight
+  # one step of fight
+  def do_hero_fight_step
+  end
+
+  def handle_after_hero_fight_step
+    if @hero.life<0
+      hero_died
+    end
+  end
+
+  def hero_died
+    puts "You died"
+    game_over
+  end
+
+  def game_over
+    puts "Game over"
+    @game_is_over=true
   end
 
 end

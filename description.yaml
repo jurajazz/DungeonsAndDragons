@@ -44,6 +44,13 @@ ways:
   - way:
     from: Madrid-center
     to: Madrid-tree
+  - way:
+    from: London-center
+    to: London-undergound
+  - way:
+    from: London-center
+    to: London-cantine
+
 
 quests:
   - quest:
@@ -54,13 +61,14 @@ quests:
 npcs:
   - npc:
     name: Wizard
+    is_enemy: true
     place: Madrid-tree
     weapon:
       name: knife
       level: 10
     life: 100
   - npc:
-    name: Boss
+    name: Boss of Undergound
     is_enemy: true
     place: London-undergound
     weapon:
